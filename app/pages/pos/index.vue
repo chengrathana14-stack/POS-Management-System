@@ -3,7 +3,7 @@
     <!-- Left Column: Search, Category Tabs & Product Catalog Grid -->
     <div class="col-lg-7 col-xl-7">
       <!-- Search & Category Card -->
-      <div class="card shadow-sm border-0 mb-3 p-3 bg-white rounded-3">
+      <div class="card shadow-sm border-0 mb-3 p-3 bg-white rounded-4">
         <!-- Search Input with Barcode & Keyboard shortcut -->
         <div class="input-group search-bar-wrapper mb-3 rounded-pill overflow-hidden border">
           <span class="input-group-text bg-white border-0 text-muted ps-3">
@@ -72,67 +72,74 @@
       <div class="row row-cols-2 row-cols-md-3 g-3">
         <div v-for="product in filteredProducts" :key="product.id" class="col">
           <div
-            class="card product-card h-100 border-0 p-3 text-center position-relative cursor-pointer hover-lift"
-            :class="{ 'opacity-50 pointer-events-none': product.stockQty <= 0 }"
+            class="card product-card h-100 position-relative cursor-pointer"
+            :class="{
+              'in-cart-active': getItemQuantityInCart(product.id) > 0,
+              'opacity-50 pointer-events-none': product.stockQty <= 0
+            }"
             @click="product.stockQty > 0 ? handleAddToCart(product) : null"
           >
-            <!-- Badges -->
-            <div class="position-absolute top-0 end-0 m-2 d-flex flex-column gap-1 align-items-end">
+            <!-- Top Badges Row -->
+            <div class="d-flex justify-content-between align-items-center w-100 mb-1" style="min-height: 22px;">
+              <!-- Stock Indicator Pill -->
               <span
                 v-if="product.stockQty <= 3 && product.stockQty > 0"
-                class="badge bg-danger text-white rounded-pill px-2 py-1 shadow-xs"
-                style="font-size: 0.65rem;"
+                class="stock-pill stock-low"
               >
-                Only {{ product.stockQty }} left
+                ● Only {{ product.stockQty }} left
               </span>
               <span
                 v-else-if="product.stockQty <= 0"
-                class="badge bg-secondary text-white rounded-pill px-2 py-1 shadow-xs"
-                style="font-size: 0.65rem;"
+                class="stock-pill stock-out"
               >
-                Out of Stock
+                ● Out of stock
               </span>
               <span
                 v-else
-                class="badge bg-light text-muted border rounded-pill px-2 py-1"
-                style="font-size: 0.65rem;"
+                class="stock-pill stock-ok"
               >
-                Stock: {{ product.stockQty }}
+                ● {{ product.stockQty }} in stock
+              </span>
+
+              <!-- In-Cart Counter Pill -->
+              <span
+                v-if="getItemQuantityInCart(product.id) > 0"
+                class="badge rounded-pill bg-primary text-white in-cart-badge font-monospace"
+              >
+                {{ getItemQuantityInCart(product.id) }} in cart
               </span>
             </div>
 
-            <!-- Real Product Image with Frame -->
-            <div class="product-img-box mb-3 d-flex align-items-center justify-content-center mx-auto rounded-3 bg-light">
+            <!-- Pure Seamless Product Image Showcase -->
+            <div class="product-stage my-2 d-flex align-items-center justify-content-center">
               <img
                 :src="product.image"
                 :alt="product.name"
-                class="img-fluid rounded object-fit-contain product-img"
+                class="product-packshot img-fluid"
                 loading="lazy"
               />
             </div>
 
-            <!-- Product Details -->
-            <div class="fw-bold text-dark small mb-1 text-truncate" :title="product.name">
+            <!-- Product Title -->
+            <div class="fw-bold text-dark product-name text-truncate text-center mb-1" :title="product.name">
               {{ product.name }}
             </div>
-            
-            <div class="d-flex align-items-center justify-content-between mt-auto pt-2">
-              <div class="product-price fw-bolder fs-6 text-primary">
-                {{ formatCurrency(product.unitPrice) }}
-              </div>
-              <button
-                type="button"
-                class="btn btn-sm btn-quick-add rounded-circle p-0 d-flex align-items-center justify-content-center"
-                title="Add to cart"
-                :disabled="product.stockQty <= 0"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              </button>
+
+            <!-- Product Price (Color matched with Mockup: Warm Orange for Row 1, Vibrant Blue for Row 2) -->
+            <div class="product-price fw-bolder font-monospace text-center mt-auto" :style="{ color: getProductPriceColor(product) }">
+              {{ formatCurrency(product.unitPrice) }}
+            </div>
+
+            <!-- Quick Hover Add Action Pill -->
+            <div class="quick-add-overlay text-center">
+              <span class="quick-add-btn">
+                + Add to Order
+              </span>
             </div>
           </div>
         </div>
 
-        <div v-if="filteredProducts.length === 0" class="col-12 py-5 text-center text-muted card bg-white border-0">
+        <div v-if="filteredProducts.length === 0" class="col-12 py-5 text-center text-muted card bg-white border-0 rounded-4">
           <div class="fs-1 mb-2">🔍</div>
           <div class="fw-bold text-dark">No products found</div>
           <div class="small text-muted">Try adjusting your search query or category filter</div>
@@ -142,7 +149,7 @@
 
     <!-- Right Column: Order Checkout Cart Panel -->
     <div class="col-lg-5 col-xl-5">
-      <div class="card shadow-md border-0 rounded-3 overflow-hidden sticky-top" style="top: 1rem;">
+      <div class="card shadow-md border-0 rounded-4 overflow-hidden sticky-top" style="top: 1rem;">
         <!-- Order Header with Order ID and Clear Action -->
         <div class="order-panel-header px-4 py-3 d-flex justify-content-between align-items-center text-white" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);">
           <div class="d-flex align-items-center gap-2">
@@ -186,7 +193,7 @@
                 v-if="item.product.image"
                 :src="item.product.image"
                 :alt="item.product.name"
-                class="rounded-3 object-fit-contain border bg-light flex-shrink-0 p-1"
+                class="rounded-3 object-fit-contain border bg-white flex-shrink-0 p-1"
                 style="width: 38px; height: 38px;"
               />
               <div class="text-truncate">
@@ -421,7 +428,7 @@ import { formatCurrency } from '~/utils/currency'
 import type { Product } from '~/types/product'
 
 const {
-  items: cartItems,
+  cartItems,
   discountPercent,
   taxPercent,
   totals,
@@ -453,6 +460,19 @@ const categories = [
 
 const getCategoryCount = (catId: string) => {
   return products.value.filter(p => p.categoryId === catId).length
+}
+
+const getItemQuantityInCart = (productId: number) => {
+  const item = cartItems.value.find(i => i.product.id === productId)
+  return item ? item.quantity : 0
+}
+
+const getProductPriceColor = (product: Product) => {
+  // Matching reference mockup: Top row (Shoes $320, T-Shirt $25, Short $20) in warm orange, Bottom row in blue
+  if (product.id === 1 || product.id === 2 || product.id === 3 || product.unitPrice >= 20) {
+    return '#ea580c' // Warm vibrant amber/orange
+  }
+  return '#2563eb' // Rich cobalt blue
 }
 
 const filteredProducts = computed(() => {
@@ -610,44 +630,126 @@ onUnmounted(() => {
   height: 4px;
 }
 
+/* Elite E-Commerce Product Card */
 .product-card {
-  border-radius: 16px !important;
-  background-color: #ffffff;
-  border: 1px solid rgba(226, 232, 240, 0.8) !important;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.product-img-box {
-  width: 100%;
-  height: 100px;
+  border-radius: 18px !important;
+  background: #ffffff;
+  border: 1.5px solid #edf2f7 !important;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04), 0 2px 4px -2px rgba(15, 23, 42, 0.02) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
-  background-color: #f8fafc;
+  padding: 0.9rem !important;
 }
 
-.product-img {
-  height: 85px;
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: #93c5fd !important;
+  box-shadow: 0 16px 32px -8px rgba(37, 99, 235, 0.12), 0 6px 12px -3px rgba(15, 23, 42, 0.04) !important;
+}
+
+.product-card:active {
+  transform: scale(0.97);
+}
+
+.product-card.in-cart-active {
+  border-color: #3b82f6 !important;
+  background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+  box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.12) !important;
+}
+
+.product-stage {
+  height: 125px;
+  width: 100%;
+  position: relative;
+}
+
+.product-packshot {
+  max-height: 115px;
   width: auto;
   max-width: 100%;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.08));
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
 }
 
-.product-card:hover .product-img {
-  transform: scale(1.08);
+.product-card:hover .product-packshot {
+  transform: scale(1.08) translateY(-4px);
+  filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.12));
 }
 
-.btn-quick-add {
-  width: 28px;
-  height: 28px;
-  background-color: #eff6ff;
-  color: #2563eb;
-  border: 1px solid #bfdbfe;
-  transition: all 0.15s ease;
+.product-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
-.product-card:hover .btn-quick-add {
-  background-color: #2563eb;
+.product-price {
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.stock-pill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 2px 8px;
+  letter-spacing: 0.01em;
+}
+
+.stock-ok {
+  background-color: #ecfdf5;
+  color: #059669;
+}
+
+.stock-low {
+  background-color: #fffbeb;
+  color: #d97706;
+}
+
+.stock-out {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.in-cart-badge {
+  font-size: 0.68rem;
+  padding: 3px 8px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+  animation: pop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.quick-add-overlay {
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+  right: 12px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.product-card:hover .quick-add-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quick-add-btn {
+  display: block;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   color: #ffffff;
-  border-color: #2563eb;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 5px 0;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 .quick-bill-chip {
