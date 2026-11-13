@@ -98,6 +98,7 @@ export function useCart() {
 
   return {
     cartItems,
+    items: cartItems,
     discountPercent,
     taxPercent,
     cartError,

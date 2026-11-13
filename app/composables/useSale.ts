@@ -335,11 +335,21 @@ export function useSale() {
     return salesHistory.value.find((s) => s.receiptNo.toLowerCase() === receiptNo.trim().toLowerCase())
   }
 
+  const createSale = (payload?: any): Sale | null => {
+    if (payload && payload.amountTendered) {
+      const res = processCheckout(payload.amountTendered)
+      if (res.success && res.sale) return res.sale
+    }
+    return lastCompletedSale.value
+  }
+
   return {
     salesHistory,
+    sales: salesHistory,
     lastCompletedSale,
     isProcessingCheckout,
     processCheckout,
+    createSale,
     voidSale,
     searchSales,
     getSaleById,
