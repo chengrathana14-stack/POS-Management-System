@@ -1,84 +1,164 @@
 <template>
   <div>
-    <!-- 4 High-End Vibrant Gradient Metric Cards -->
+    <!-- 4 High-End Vibrant Gradient Metric Cards (Balanced Layout & No Empty Space) -->
     <div class="row g-3 mb-4">
-      <!-- 1. Today's Sales (Deep Blue Gradient) -->
+      <!-- 1. Today's Sales (Blue) -->
       <div class="col-sm-6 col-xl-3">
-        <div class="card metric-card text-white p-3 border-0 rounded-4 shadow-md position-relative overflow-hidden" style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);">
-          <!-- Glass highlight overlay -->
-          <div class="metric-glass-circle"></div>
-
-          <div class="d-flex justify-content-between align-items-center mb-2 position-relative">
-            <div class="metric-icon-box bg-white bg-opacity-20 rounded-3 d-flex align-items-center justify-content-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-            </div>
-            <span class="badge bg-white bg-opacity-20 text-white font-monospace" style="font-size: 0.72rem;">↑ 12.4%</span>
+        <div class="card metric-card text-white p-3 border-0 rounded-4 shadow-md position-relative overflow-hidden" style="background: linear-gradient(135deg, #1877f2 0%, #1e40af 100%);">
+          <!-- Subtle watermark graphic on the right to fill background -->
+          <div class="card-watermark position-absolute end-0 bottom-0 mb-n2 me-n2 text-white" style="opacity: 0.08; pointer-events: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
           </div>
 
-          <div class="position-relative">
-            <div class="text-white-50 small mb-1">Today's Sales</div>
-            <h3 class="fw-bolder mb-0 font-monospace">$1,250.00</h3>
-            <div class="text-white-50 mt-1" style="font-size: 0.7rem;">+ $140.00 vs yesterday</div>
+          <!-- Top Row: Icon Box + Title + Trend Pill -->
+          <div class="d-flex justify-content-between align-items-center mb-3 position-relative z-1">
+            <div class="d-flex align-items-center gap-2">
+              <div class="glass-icon-box rounded-3 d-flex align-items-center justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+                  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+                </svg>
+              </div>
+              <span class="small fw-semibold text-white">Today's Sales</span>
+            </div>
+
+            <!-- Trend Pill with Visible White Text -->
+            <span class="glass-badge font-monospace">
+              ↑ 12.4%
+            </span>
+          </div>
+
+          <!-- Bottom Row: Big Figure on Left + Interactive Sparkline on Right -->
+          <div class="d-flex justify-content-between align-items-end position-relative z-1">
+            <div>
+              <h3 class="fw-bolder mb-0 font-monospace text-white">$1,250.00</h3>
+              <div class="text-white-50 mt-1" style="font-size: 0.72rem;">+ $140.00 vs yesterday</div>
+            </div>
+
+            <!-- Right-Side Mini Sparkline -->
+            <div class="sparkline-box text-end">
+              <svg width="74" height="30" viewBox="0 0 74 30" fill="none">
+                <path d="M2 24 L14 18 L26 21 L38 10 L52 14 L70 4" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="70" cy="4" r="3.2" fill="#ffffff" />
+              </svg>
+              <div class="text-white-50 font-monospace" style="font-size: 0.65rem;">Trending Up</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- 2. Transactions (Emerald Gradient) -->
+      <!-- 2. Transactions (Emerald Green) -->
       <div class="col-sm-6 col-xl-3">
-        <div class="card metric-card text-white p-3 border-0 rounded-4 shadow-md position-relative overflow-hidden" style="background: linear-gradient(135deg, #065f46 0%, #10b981 100%);">
-          <div class="metric-glass-circle"></div>
-
-          <div class="d-flex justify-content-between align-items-center mb-2 position-relative">
-            <div class="metric-icon-box bg-white bg-opacity-20 rounded-3 d-flex align-items-center justify-content-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            </div>
-            <span class="badge bg-white bg-opacity-20 text-white" style="font-size: 0.72rem;">● Live</span>
+        <div class="card metric-card text-white p-3 border-0 rounded-4 shadow-md position-relative overflow-hidden" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+          <div class="card-watermark position-absolute end-0 bottom-0 mb-n2 me-n2 text-white" style="opacity: 0.08; pointer-events: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           </div>
 
-          <div class="position-relative">
-            <div class="text-white-50 small mb-1">Total Transactions</div>
-            <h3 class="fw-bolder mb-0 font-monospace">25</h3>
-            <div class="text-white-50 mt-1" style="font-size: 0.7rem;">Avg: $50.00 / order</div>
+          <div class="d-flex justify-content-between align-items-center mb-3 position-relative z-1">
+            <div class="d-flex align-items-center gap-2">
+              <div class="glass-icon-box rounded-3 d-flex align-items-center justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              </div>
+              <span class="small fw-semibold text-white">Transactions</span>
+            </div>
+
+            <span class="glass-badge font-monospace">
+              ● Live
+            </span>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-end position-relative z-1">
+            <div>
+              <h3 class="fw-bolder mb-0 font-monospace text-white">25</h3>
+              <div class="text-white-50 mt-1" style="font-size: 0.72rem;">Avg: $50.00 / order</div>
+            </div>
+
+            <!-- Right-Side Wave Sparkline -->
+            <div class="sparkline-box text-end">
+              <svg width="74" height="30" viewBox="0 0 74 30" fill="none">
+                <path d="M2 16 Q 18 4, 36 16 T 70 8" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" fill="none" />
+                <circle cx="70" cy="8" r="3.2" fill="#ffffff" />
+              </svg>
+              <div class="text-white-50 font-monospace" style="font-size: 0.65rem;">Active Shift</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- 3. Total Products (Violet Gradient) -->
+      <!-- 3. Total Products (Violet / Purple) -->
       <div class="col-sm-6 col-xl-3">
-        <div class="card metric-card text-white p-3 border-0 rounded-4 shadow-md position-relative overflow-hidden" style="background: linear-gradient(135deg, #5b21b6 0%, #8b5cf6 100%);">
-          <div class="metric-glass-circle"></div>
-
-          <div class="d-flex justify-content-between align-items-center mb-2 position-relative">
-            <div class="metric-icon-box bg-white bg-opacity-20 rounded-3 d-flex align-items-center justify-content-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-            </div>
-            <span class="badge bg-white bg-opacity-20 text-white" style="font-size: 0.72rem;">Catalog</span>
+        <div class="card metric-card text-white p-3 border-0 rounded-4 shadow-md position-relative overflow-hidden" style="background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%);">
+          <div class="card-watermark position-absolute end-0 bottom-0 mb-n2 me-n2 text-white" style="opacity: 0.08; pointer-events: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
           </div>
 
-          <div class="position-relative">
-            <div class="text-white-50 small mb-1">Total Products</div>
-            <h3 class="fw-bolder mb-0 font-monospace">120</h3>
-            <div class="text-white-50 mt-1" style="font-size: 0.7rem;">Across 3 categories</div>
+          <div class="d-flex justify-content-between align-items-center mb-3 position-relative z-1">
+            <div class="d-flex align-items-center gap-2">
+              <div class="glass-icon-box rounded-3 d-flex align-items-center justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+              </div>
+              <span class="small fw-semibold text-white">Total Products</span>
+            </div>
+
+            <span class="glass-badge font-monospace">
+              Catalog
+            </span>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-end position-relative z-1">
+            <div>
+              <h3 class="fw-bolder mb-0 font-monospace text-white">120</h3>
+              <div class="text-white-50 mt-1" style="font-size: 0.72rem;">Across 3 categories</div>
+            </div>
+
+            <!-- Right-Side Mini Bars -->
+            <div class="sparkline-box text-end">
+              <svg width="74" height="26" viewBox="0 0 74 26" fill="none">
+                <rect x="4" y="14" width="8" height="12" rx="2" fill="#ffffff" fill-opacity="0.4" />
+                <rect x="18" y="8" width="8" height="18" rx="2" fill="#ffffff" fill-opacity="0.6" />
+                <rect x="32" y="4" width="8" height="22" rx="2" fill="#ffffff" fill-opacity="0.8" />
+                <rect x="46" y="10" width="8" height="16" rx="2" fill="#ffffff" fill-opacity="0.5" />
+                <rect x="60" y="2" width="8" height="24" rx="2" fill="#ffffff" />
+              </svg>
+              <div class="text-white-50 font-monospace" style="font-size: 0.65rem;">Stock Levels</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- 4. Low Stock Alert (Sunset Amber/Coral Gradient) -->
+      <!-- 4. Low Stock Alert (Orange / Amber) -->
       <div class="col-sm-6 col-xl-3">
-        <div class="card metric-card text-white p-3 border-0 rounded-4 shadow-md position-relative overflow-hidden" style="background: linear-gradient(135deg, #9a3412 0%, #f97316 100%);">
-          <div class="metric-glass-circle"></div>
-
-          <div class="d-flex justify-content-between align-items-center mb-2 position-relative">
-            <div class="metric-icon-box bg-white bg-opacity-20 rounded-3 d-flex align-items-center justify-content-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-            </div>
-            <span class="badge bg-white text-danger font-monospace" style="font-size: 0.72rem;">Action</span>
+        <div class="card metric-card text-white p-3 border-0 rounded-4 shadow-md position-relative overflow-hidden" style="background: linear-gradient(135deg, #c2410c 0%, #f97316 100%);">
+          <div class="card-watermark position-absolute end-0 bottom-0 mb-n2 me-n2 text-white" style="opacity: 0.08; pointer-events: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
           </div>
 
-          <div class="position-relative">
-            <div class="text-white-50 small mb-1">Low Stock Warning</div>
-            <h3 class="fw-bolder mb-0 font-monospace">3</h3>
-            <div class="text-white-50 mt-1" style="font-size: 0.7rem;">Items &lt; 5 quantity left</div>
+          <div class="d-flex justify-content-between align-items-center mb-3 position-relative z-1">
+            <div class="d-flex align-items-center gap-2">
+              <div class="glass-icon-box rounded-3 d-flex align-items-center justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+              </div>
+              <span class="small fw-semibold text-white">Low Stock</span>
+            </div>
+
+            <span class="glass-badge font-monospace text-warning bg-warning bg-opacity-25" style="border: 1px solid rgba(253, 224, 71, 0.4);">
+              ⚠️ Action
+            </span>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-end position-relative z-1">
+            <div>
+              <h3 class="fw-bolder mb-0 font-monospace text-white">3</h3>
+              <div class="text-white-50 mt-1" style="font-size: 0.72rem;">Items &lt; 5 quantity left</div>
+            </div>
+
+            <!-- Right-Side Alert Badge / Indicator -->
+            <div class="sparkline-box text-end">
+              <div class="d-inline-flex align-items-center gap-1 px-2 py-1 rounded-pill" style="background: rgba(0, 0, 0, 0.2); font-size: 0.72rem;">
+                <span class="pulse-dot-amber"></span>
+                <span class="fw-bold font-monospace">Needs Reorder</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -288,20 +368,35 @@ const getRankClass = (idx: number) => {
   transform: translateY(-3px);
 }
 
-.metric-glass-circle {
-  position: absolute;
-  top: -30px;
-  right: -30px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  pointer-events: none;
+.glass-icon-box {
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-.metric-icon-box {
-  width: 38px;
-  height: 38px;
+.glass-badge {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+.sparkline-box {
+  opacity: 0.9;
+}
+
+.pulse-dot-amber {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #facc15;
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.35);
 }
 
 .rank-badge {
